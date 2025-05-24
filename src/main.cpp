@@ -40,7 +40,7 @@ std::vector<int> hungarian_algorithm(undirected_graph g) {
     undirected_graph::update_potentials(potentials,distances);
   } 
   return matching;   
-}
+} 
 
  
 int main(int argc, char* argv[]){   
