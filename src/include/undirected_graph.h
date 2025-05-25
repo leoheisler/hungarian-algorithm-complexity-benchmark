@@ -7,6 +7,7 @@
 class undirected_graph
 {
 private:
+  int haviest;
   int num_rows;
   int num_columns;
   std::vector<std::vector<int>> graph_mem;
@@ -19,7 +20,10 @@ public:
   int get_rows_num(){ return num_rows; }
   int get_columns_num(){ return num_columns; }
   int get_vertex_num(){ return num_columns + num_rows; }
+  int get_haviest(){ return haviest; }
+  int set_haviest(int heavy){ this->haviest = heavy; }
   std::vector<std::vector<int>>  get_graph_mem(){ return graph_mem; }
+
   void add_edge(int src, int target, int weight){
     graph_mem[src][target] = weight;
   }
@@ -65,6 +69,16 @@ public:
         potentials[v] += dist[v];
       }
     }
+  }
+
+  undirected_graph eppm_instance(){
+    undirected_graph eppm(this->num_rows, this->num_columns);
+    for(int i = 0; i < num_rows; i++){
+      for(int j = 0; j < num_columns; j++){
+        eppm.graph_mem[i][j] = this->haviest - this->graph_mem[i][j];
+      }
+    }
+    return eppm;
   }
 
   void print_graph(){

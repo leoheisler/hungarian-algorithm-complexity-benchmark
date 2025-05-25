@@ -11,7 +11,7 @@ public:
   static undirected_graph read_bipartite_graph(std::istream& in) {
     std::string line="", dummy;
     int vertex_num;
-  
+    int haviest = INT_MIN;
     // (1) get total_nodes
     getline(in,line);
     std::stringstream linestr;
@@ -24,11 +24,14 @@ public:
       int edge_value;
       int j = 0;
       while(row >> edge_value){
+        if(edge_value > haviest){
+          haviest = edge_value;
+        }
         g.add_edge(i, j, edge_value);
         j++;
       }
     }
-
+    g.set_haviest(haviest);
     return g;
   }
 };

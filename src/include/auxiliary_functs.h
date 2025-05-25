@@ -33,15 +33,12 @@ public:
   }
 
   static int calc_matching_value(undirected_graph& g, const std::vector<int>& matching){
-    std::cout << "CALCULANDO O PESO DO MATCHING: " << std::endl;
-    undirected_graph::print_vector(matching);
     int result = 0;
     int T = matching.size()/2;
     auto weights = g.get_graph_mem();
     for(int i = 0; i < g.get_rows_num(); i++){
       for(int j = 0; j < g.get_columns_num(); j++){
         if(is_matched(i,j + T,matching)){
-          std::cout << weights[i][j] << std::endl;
           result += weights[i][j];
         }
       }
@@ -52,10 +49,6 @@ public:
 
   static void xor_matching(std::vector<int>& matching, const std::vector<int>& path, int dest) {
     std::vector<int> new_matching = matching;
-    auxiliary_functs::print_path(path,dest);
-
-    std::cout << "matching before: ";
-    undirected_graph::print_vector(matching);
     int curr = dest;
     while (path[curr] != -1) {
       int match = path[curr];
@@ -68,10 +61,7 @@ public:
       }
       curr = match;
     }
-    std::cout << "matching after: ";
     matching = new_matching;
-    undirected_graph::print_vector(matching);
-    std::cout << " \n";
   }
 
   // returns if edge is present in current matching

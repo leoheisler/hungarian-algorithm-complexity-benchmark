@@ -34,21 +34,30 @@ std::vector<int> hungarian_algorithm(undirected_graph g) {
       break;
     }
   
-    std::cout << "DISTANCIA ENCONTRADA: " << distances[dst] << std::endl;
     //update matching
     auxiliary_functs::xor_matching(matching,path,dst);
     undirected_graph::update_potentials(potentials,distances);
   } 
   return matching;   
-} 
+}  
 
  
 int main(int argc, char* argv[]){   
+  int eppm = 1; 
+ 
   undirected_graph g = Read::read_bipartite_graph(std::cin);
+  undirected_graph eppm_g = g.eppm_instance();
+
   try{
-    std::vector<int> matching = hungarian_algorithm(g);
-    int value = auxiliary_functs::calc_matching_value(g,matching);
-    std::cout << value;
+    std::vector<int> matching;
+    if(eppm){
+      matching = hungarian_algorithm(eppm_g);
+    }else{
+      matching = hungarian_algorithm(g);
+    }
+    
+    int value = auxiliary_functs::calc_matching_value(g,matching); 
+    std::cout << value << std::endl;
   }catch(const std::exception& e){
       std::cout << "Exceção capturada: " << e.what() << std::endl;
   }
