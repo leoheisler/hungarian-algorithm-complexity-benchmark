@@ -79,17 +79,6 @@ private:
 
     }
     
-    // calculates R values
-    double calc_r(int num_sifts){
-        double n = this->heap_queue.size();
-        double k = this->k;
-        if (n == 0 || num_sifts == 0)
-            return 0;
-
-        double logk_n = log(n)/log(k);
-        return double(num_sifts)/logk_n;
-    }
-
 public:
     //contructor
     Heap(int k): k(k) {}
@@ -98,7 +87,6 @@ public:
     unsigned get_num_inserts(){ return this->num_inserts; }
     unsigned get_num_deletes(){ return this->num_deletes; }
     unsigned get_num_updates(){ return this->num_updates; }
-    std::vector<double> get_r_values() { return this->r_values; }
 
     //heap functions
     //Inserts node in heap 
@@ -107,14 +95,9 @@ public:
         if (vertex_heap_map.count(vertex)) {
             //update distance if vertex is already in heap
             if (distance < heap_queue[vertex_heap_map[vertex]].distance) {
-                num_updates++;
-
-                heap_queue[vertex_heap_map[vertex]].distance = distance;
-
-                this->sift_up_counter = 0;
-                sift_up(vertex_heap_map[vertex]);
-                double r = calc_r(this->sift_up_counter);
-                r_values.push_back(r);
+              num_updates++;
+              heap_queue[vertex_heap_map[vertex]].distance = distance;
+              sift_up(vertex_heap_map[vertex]);
             }
         } else {
             num_inserts++;
@@ -124,11 +107,7 @@ public:
             
             int new_vertex_index = heap_queue.size() - 1;
             vertex_heap_map[vertex] = new_vertex_index;
-            
-            this->sift_up_counter = 0;
             sift_up(new_vertex_index);
-            double r = calc_r(this->sift_up_counter);
-            r_values.push_back(r);
         }
     }
     
@@ -148,10 +127,7 @@ public:
         heap_queue.pop_back();
 
         if (!heap_queue.empty()) {
-            this->sift_down_counter = 0;
             sift_down(0);
-            double r = calc_r(this->sift_down_counter);
-            r_values.push_back(r);
         }
 
         return min_node;

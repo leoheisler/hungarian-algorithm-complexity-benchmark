@@ -21,7 +21,7 @@ public:
   int get_columns_num(){ return num_columns; }
   int get_vertex_num(){ return num_columns + num_rows; }
   int get_haviest(){ return haviest; }
-  int set_haviest(int heavy){ this->haviest = heavy; }
+  void set_haviest(int heavy){ this->haviest = heavy; }
   std::vector<std::vector<int>>  get_graph_mem(){ return graph_mem; }
 
   void add_edge(int src, int target, int weight){

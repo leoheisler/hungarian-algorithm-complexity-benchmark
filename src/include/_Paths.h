@@ -8,7 +8,10 @@ bool dijkstra_with_path(
   const std::vector<int>&matching,
   std::vector<int>&distances,
   std::vector<int>&curr_path,
-  int& dst
+  int& dst,
+  int& sum_updates,
+  int& sum_inserts,
+  int& sum_deletes
 ) {
   
   Heap kHeap(2);
@@ -37,7 +40,11 @@ bool dijkstra_with_path(
       }
     }
   }
-
+  //log inserts,updates and deletes
+  sum_inserts += kHeap.get_num_inserts();
+  sum_updates += kHeap.get_num_updates();
+  sum_deletes += kHeap.get_num_deletes();
+  
   // finding closest free vertex
   int min_dist = INT_MAX;
   int best_target = -1;

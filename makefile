@@ -9,7 +9,7 @@ OBJ_DIR = obj
 BUILD_DIR = build
 
 # Arquivos
-SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
+SOURCES = $(filter-out $(SRC_DIR)/graph_gen.cpp, $(wildcard $(SRC_DIR)/*.cpp))
 OBJECTS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SOURCES))
 
 # Nome do executável
