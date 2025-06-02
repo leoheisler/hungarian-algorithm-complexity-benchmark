@@ -12,9 +12,9 @@ bool find_augmenting_path(
   std::vector<int>& potentials,
   std::vector<int>& path,
   int& dst,
-  int& sum_updates,
-  int& sum_inserts,
-  int& sum_deletes
+  float& sum_updates,
+  float& sum_inserts,
+  float& sum_deletes
 ) {
   
   bool result = dijkstra_with_path(H_M, matching, distances, path, dst, sum_updates,sum_inserts,sum_deletes);
@@ -29,7 +29,7 @@ std::vector<int> hungarian_algorithm(undirected_graph g, std::ofstream& outfile)
   std::vector<int> potentials = undirected_graph::init_potentials(g);
   std::vector<int> distances(g.get_vertex_num(),INT_MAX);
   std::vector<int> path(g.get_vertex_num(),-1);
-  int sum_updates = 0, sum_inserts = 0, sum_deletes = 0, total_itr = 0;
+  float sum_updates = 0, sum_inserts = 0, sum_deletes = 0, total_itr = 0;
 
   int dst;
   while (true) {
@@ -68,6 +68,10 @@ int main(int argc, char* argv[]){
   }
   undirected_graph g = Read::read_bipartite_graph(std::cin);
   undirected_graph eppm_g = g.eppm_instance();
+
+  if (outfile.is_open()) {
+    outfile << g.get_vertex_num() << "," << g.get_rows_num()*g.get_columns_num() << ',';
+  }
   auto start = std::chrono::high_resolution_clock::now();
 
   try{

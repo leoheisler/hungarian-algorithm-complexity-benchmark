@@ -9,9 +9,9 @@ bool dijkstra_with_path(
   std::vector<int>&distances,
   std::vector<int>&curr_path,
   int& dst,
-  int& sum_updates,
-  int& sum_inserts,
-  int& sum_deletes
+  float& sum_updates,
+  float& sum_inserts,
+  float& sum_deletes
 ) {
   
   Heap kHeap(2);

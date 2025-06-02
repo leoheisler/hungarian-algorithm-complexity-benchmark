@@ -1,6 +1,6 @@
-curr_empar=1000
+curr_empar=500
 jump=100
-final_empar=4000
+final_empar=3000
 prefix="graphs/benchmark_graphs/"
 
 while [ $curr_empar -le $final_empar ]; do
